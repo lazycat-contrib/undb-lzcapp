@@ -1,0 +1,8 @@
+services:
+    undb:
+        ports:
+            - 3721:3721
+        volumes:
+            - $(pwd)/undb:/usr/src/app/.undb
+        container_name: undb
+        image: ghcr.io/undb-io/undb:latest

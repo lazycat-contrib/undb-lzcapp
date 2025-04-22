@@ -1,0 +1,23 @@
+lzc-sdk-version: "0.1"
+name: undb
+package: cloud.lazycat.app.undb
+version: 1.0.0
+description: 一个无代码平台
+homepage: https://github.com/undb-io/undb
+author: undb-io
+application:
+  subdomain: undb
+  background_task: true
+  multi_instance: false
+  gpu_accel: false
+  kvm_accel: false
+  usb_accel: false
+  public_path:
+    - /
+  routes:
+    - /=http://undb.cloud.lazycat.app.undb.lzcapp:3721/
+services:
+  undb:
+    image: registry.lazycat.cloud/czyt/undb-io/undb:43c251c388ac5686
+    binds:
+      - /lzcapp/var/.undb:/usr/src/app/.undb
