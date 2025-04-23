@@ -15,9 +15,16 @@ application:
   public_path:
     - /
   routes:
-    - /=http://undb.cloud.lazycat.app.undb.lzcapp:3721/
+    - /=http://undb:3721/
 services:
   undb:
     image: registry.lazycat.cloud/czyt/undb-io/undb:43c251c388ac5686
     binds:
-      - /lzcapp/var/.undb:/usr/src/app/.undb
+      - /lzcapp/var/data:/usr/src/app/.undb
+    setup_script: |
+        if [ ! -f /usr/src/app/.undb/undb.sqlite ];then
+            echo "undb.sqlite not exists"
+            cp -f /lzcapp/pkg/content/undb.sqlite /usr/src/app/.undb/undb.sqlite
+        fi
+        echo "create db link"
+        ln -s /usr/src/app/.undb/undb.sqlite /usr/src/app/undb.sqlite
