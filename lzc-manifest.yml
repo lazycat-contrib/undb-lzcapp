@@ -10,7 +10,7 @@ application:
 services:
   undb:
     # upstream: ghcr.io/undb-io/undb:v0.11.0
-    image: ghcr.io/undb-io/undb:v0.11.0
+    image: registry.lazycat.cloud/czyt/undb-io/undb:bf9040fad3585232
     binds:
       - /lzcapp/var/data:/usr/src/app/.undb
     setup_script: |
