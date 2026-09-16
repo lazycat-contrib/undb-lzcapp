@@ -1,0 +1,45 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: .lazycat-build/undb.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: undb
+
+build:
+  run_buildscript: false
+
+images:
+  # 主应用：上游仅存在于 GHCR（undb-io/undb 不在 Docker Hub）。
+  # 稳定家族 v0.2.0~v0.11.0；v1.0.0-N 为预发布 tag 不匹配三段 SemVer。
+  # 注意：官方商店在线版本为 1.0.0（v1 发布），高于上游最新 stable v0.11.0，
+  # 因此 package 版本对齐 0.11.0；store 侧 skip_if_version_exists 保证不发布降级版本，
+  # 上游发布 v1.1.0+ 后自动发布。
+  - id: undb
+    target: service
+    service: undb
+    source: ghcr.io/undb-io/undb
+    channel: stable
+    sort: semver
+    tag_regex: '^v?\d+\.\d+\.\d+$'
+    delivery:
+      mode: lazycat
+
+stores:
+  official:
+    enabled: true
+    skip_if_version_exists: true
+    changelog_locales: [zh, en]
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: undb
+    summary: "一个无代码平台"

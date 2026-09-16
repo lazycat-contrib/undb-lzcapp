@@ -1,0 +1,14 @@
+package: cloud.lazycat.app.undb
+version: 0.11.0
+name: undb
+description: "一个无代码平台"
+min_os_version: "1.5.0"
+homepage: https://github.com/undb-io/undb
+author: undb-io
+locales:
+  zh:
+    description: "一个无代码平台"
+    name: undb
+  en:
+    description: "A codeless database and backend-as-a-service platform"
+    name: undb

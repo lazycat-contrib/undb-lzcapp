@@ -1,0 +1,22 @@
+application:
+  subdomain: undb
+  background_task: true
+  multi_instance: false
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://undb:3721/
+services:
+  undb:
+    # upstream: ghcr.io/undb-io/undb:v0.11.0
+    image: ghcr.io/undb-io/undb:v0.11.0
+    binds:
+      - /lzcapp/var/data:/usr/src/app/.undb
+    setup_script: |
+      if [ ! -f /usr/src/app/.undb/undb.sqlite ];then
+          echo "undb.sqlite not exists"
+          cp -f /lzcapp/pkg/content/undb.sqlite /usr/src/app/.undb/undb.sqlite
+      fi
+      echo "create db link"
+      ln -s /usr/src/app/.undb/undb.sqlite /usr/src/app/undb.sqlite
