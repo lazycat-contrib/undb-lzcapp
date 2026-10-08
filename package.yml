@@ -1,4 +1,5 @@
 package: cloud.lazycat.app.undb
+license: AGPL-3.0
 version: 0.11.0
 name: undb
 description: "一个无代码平台"
